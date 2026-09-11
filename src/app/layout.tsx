@@ -1,40 +1,49 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
-const serif = Instrument_Serif({
-  display: "swap",
-  weight: "400",
-  style: ["normal", "italic"],
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-serif",
 });
 
-const sans = DM_Sans({
-  display: "swap",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["100", "200", "300", "400", "500", "600"],
-});
-
-const mono = JetBrains_Mono({
-  display: "swap",
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "TeleVault — Your Telegram as a cloud drive",
+  title: "TeleVault — Personal File Management Through Telegram",
   description:
-    "Store anything. No monthly bills. Your Telegram account becomes 5 TB of private cloud storage.",
+    "TeleVault is a desktop file manager for organizing, searching and managing files through your own Telegram account.",
+  keywords: [
+    "file manager",
+    "Telegram",
+    "desktop app",
+    "file organization",
+    "cloud storage",
+    "TeleVault",
+  ],
   openGraph: {
-    title: "TeleVault",
-    description: "Your Telegram account as a real cloud drive. 5 TB. One payment.",
+    title: "TeleVault — Personal File Management Through Telegram",
+    description:
+      "TeleVault is a desktop file manager for organizing, searching and managing files through your own Telegram account.",
     url: "https://televault.app",
     siteName: "TeleVault",
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TeleVault — Personal File Management Through Telegram",
+    description:
+      "TeleVault is a desktop file manager for organizing, searching and managing files through your own Telegram account.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -44,8 +53,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
